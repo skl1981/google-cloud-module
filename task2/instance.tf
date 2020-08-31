@@ -29,7 +29,7 @@ resource "google_compute_instance" "nginx-gcp-terraform" {
   }
 
 
-  metadata_startup_script = "${file("simplenginx.sh")}"
+  metadata_startup_script = file("simplenginx.sh")
 }
 
 resource "google_compute_disk" "nginx-disk" {
