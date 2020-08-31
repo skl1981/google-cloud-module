@@ -39,7 +39,7 @@ resource "google_compute_instance" "nginx" {
   }
   labels = merge(var.labels, { way_of_installation = "${var.creation-way}" })
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
     #    ignore_changes = []
   }
 }
