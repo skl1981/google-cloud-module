@@ -1,0 +1,16 @@
+gcloud compute instances create "nginx-gcloud" \
+        --zone=us-central1-c \
+        --image-family=centos-7 \
+        --image-project=centos-cloud \
+        --labels=servertype=nginxserver,osfamily=redhat,wayofinstallation=gcloud \
+        --custom-cpu 1 \
+        --custom-memory 4608MB \
+        --boot-disk-type=pd-ssd \
+        --boot-disk-size=35GB \
+        --tags http-server,https-server \
+        --deletion-protection \
+        --metadata startup-script='#! /bin/bash
+          # Installs nginx and enable
+          if [[ ! $(systemctl list-unit-files | grep nginx) ]]
+             then sudo yum install nginx -y && sudo systemctl start nginx && sudo systemctl enable nginx
+          fi'
