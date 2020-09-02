@@ -9,10 +9,8 @@ resource "google_compute_instance" "vm_instance" {
   name         = var.name_instance
   machine_type = var.machine_type
 
-  tags=var.tags
-
-  labels=var.labels
-  
+  tags                = var.tags
+  labels              = var.labels
   deletion_protection = var.delete 
 
   boot_disk {
@@ -23,7 +21,7 @@ resource "google_compute_instance" "vm_instance" {
     }
   }
    
-  metadata_startup_script = "${file("script.sh")}"
+  metadata_startup_script = file("script.sh")
   
   network_interface {
     # A default network is created for all GCP projects
@@ -42,9 +40,5 @@ resource "google_compute_disk" "default" {
 resource "google_compute_attached_disk" "default" {
   disk     = google_compute_disk.default.id
   instance = google_compute_instance.vm_instance.id
-}
-
-output "URL" {
-  value = "http://${google_compute_instance.vm_instance.network_interface.0.access_config.0.nat_ip}"
 }
 
