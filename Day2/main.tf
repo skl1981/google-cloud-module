@@ -3,71 +3,28 @@ provider "google" {
   region  = "us-central1"
 }
 
-#################################################################
-#  Creating VPC network
-
-
-resource "google_compute_network" "vpc_network" {
-  name                    = "${var.student_name}-vpc"
-  description             = "${var.student_name}-vpc-network"
-  auto_create_subnetworks = false
+variable "name" {}
+variable "machine_type" {}
+variable "zone" {}
+variable "image" {}
+variable "type" {}
+variable "size" {
+  type = number
 }
-
-#################################################################
-#  Creating firewalls rules
-
-resource "google_compute_firewall" "external_access" {
-  name    = "${var.student_name}-ext-firewall"
-  network = google_compute_network.vpc_network.id
-
-  allow {
-    protocol = "tcp"
-    ports    = ["22", "80"]
-  }
+variable "tags" {
+  type = list
 }
-
-resource "google_compute_firewall" "internal_access" {
-  name    = "${var.student_name}-int-firewall"
-  network = google_compute_network.vpc_network.id
-
-  allow {
-    protocol = "tcp"
-    ports    = ["0-65535"]
-  }
-
-  allow {
-    protocol = "udp"
-    ports    = ["0-65535"]
-  }
-
-  source_ranges = ["10.${var.student_id}.2.0/24"]
+variable "labels" {
+  type = map
 }
-
-#################################################################
-# Creating auto_create_subnetworks
-
-resource "google_compute_subnetwork" "public" {
-  name          = "public-subnetwork"
-  ip_cidr_range = "10.${var.student_id}.1.0/24"
-  network       = google_compute_network.vpc_network.id
-  description   = "${var.student_name}-public subnetwork"
-}
-
-resource "google_compute_subnetwork" "private" {
-  name          = "private-subnetwork"
-  ip_cidr_range = "10.${var.student_id}.2.0/24"
-  network       = google_compute_network.vpc_network.id
-  description   = "${var.student_name}-private subnetwork"
-}
-
-##################################################################
-# Creating Vm instance
+variable "deletion_protection" {}
+variable "network" {}
 
 resource "google_compute_instance" "default" {
-  name         = var.name
-  machine_type = var.machine_type
-  zone         = var.zone
-
+  name                = var.name
+  machine_type        = var.machine_type
+  zone                = var.zone
+  deletion_protection = var.deletion_protection
 
   boot_disk {
     initialize_params {
@@ -78,18 +35,17 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    network    = "${var.student_name}-vpc"
-    subnetwork = google_compute_subnetwork.public.id
+    network = var.network
     access_config {
       // Ephemeral IP
     }
   }
 
-  metadata_startup_script = <<SCRIPT
-       sudo yum update
-       sudo yum install -y nginx
-       sudo systemctl enable nginx
-       sudo systemctl start nginx
-       echo "<h1>Hello from ${var.student_name}</h1>" > /usr/share/nginx/html/index.html
-    SCRIPT
+  tags                    = var.tags
+  metadata_startup_script = file("script.sh")
+  labels                  = var.labels
+}
+
+output "ip" {
+  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
 }
