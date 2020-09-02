@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("../terraform-admin.json")
+  credentials = file("../../terraform-admin.json")
   project     = var.project
   region      = var.region
 }
@@ -37,6 +37,3 @@ resource "google_compute_instance" "nginx-terraform" {
     SCRIPT
 }
 
-output "url" {
-  value = "http://${google_compute_instance.nginx-terraform.network_interface[0].access_config[0].nat_ip}"
-}
