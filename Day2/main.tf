@@ -40,7 +40,7 @@ resource "google_compute_firewall" "internal_access" {
     ports    = ["0-65535"]
   }
 
-  source_ranges = ["10.${var.student_id}.1.0/24"]
+  source_ranges = ["10.${var.student_id}.2.0/24"]
 }
 
 #################################################################
@@ -48,14 +48,14 @@ resource "google_compute_firewall" "internal_access" {
 
 resource "google_compute_subnetwork" "public" {
   name          = "public-subnetwork"
-  ip_cidr_range = "10.12.1.0/24"
+  ip_cidr_range = "10.${var.student_id}.1.0/24"
   network       = google_compute_network.vpc_network.id
   description   = "${var.student_name}-public subnetwork"
 }
 
 resource "google_compute_subnetwork" "private" {
   name          = "private-subnetwork"
-  ip_cidr_range = "10.12.2.0/24"
+  ip_cidr_range = "10.${var.student_id}.2.0/24"
   network       = google_compute_network.vpc_network.id
   description   = "${var.student_name}-private subnetwork"
 }
@@ -64,10 +64,10 @@ resource "google_compute_subnetwork" "private" {
 # Creating Vm instance
 
 resource "google_compute_instance" "default" {
-  name                = var.name
-  machine_type        = var.machine_type
-  zone                = var.zone
-  deletion_protection = var.deletion_protection
+  name         = var.name
+  machine_type = var.machine_type
+  zone         = var.zone
+
 
   boot_disk {
     initialize_params {
