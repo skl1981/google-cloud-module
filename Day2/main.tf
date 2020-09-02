@@ -11,7 +11,7 @@ machine_type        	= var.machine_type
 tags                	= var.tag
 labels              	= var.labels
 deletion_protection 	= var.delete
-metadata_startup_script = file("script.sh")
+metadata_startup_script = file("nginx_server.sh")
 
 boot_disk {
   initialize_params {

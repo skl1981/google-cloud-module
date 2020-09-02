@@ -5,13 +5,10 @@ gcloud compute instances create nginx-gcloud \
 --boot-disk-device-name=persistent-disk-0 \
 --custom-cpu=1 \
 --custom-memory=4608MiB \
---custom-vm-type=n1 \
 --image-project=centos-cloud \
 --image-family=centos-7 \
 --network=default \
 --deletion-protection \
 --labels=servertype=nginxserver,osfamily=redhat,wayofinstallation=gcloud \
 --tags http-server,https-server \
---metadata startup-script='#! /bin/bash
-sudo yum -y install nginx
-sudo systemctl start nginx'
+--metadata-from-file startup-script=nginx_server.sh
