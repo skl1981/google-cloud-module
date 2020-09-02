@@ -1,0 +1,8 @@
+# Create service account:
+  gcloud iam service-accounts create terraform-srv --display-name "Terraform Admin Account"  
+# Download json credentials:
+ gcloud iam service-accounts keys create vladimir-project-01-7b7039c36bc6.json  \ --iam-account terraform-srv@vladimir-project-01.iam.gserviceaccount.co
+# Enable API for terraform:
+gcp % for API in 'cloudresourcemanager' 'cloudbilling' 'iam' 'compute'; do gcloud services enable "${API}.googleapis.com"; done          
+# grant service account OWNER permissions
+gcloud projects add-iam-policy-binding vladimir-project-01 --member serviceAccount:terraform-srv@vladimir-project-01.iam.gserviceaccount.com --role roles/owner
