@@ -49,7 +49,7 @@ resource "google_compute_firewall" "fw_rule" {
       ports    = lookup(lookup(local.fw_config, element(keys(local.fw_config), count.index)), element(keys(local.fw_config.external), 0))
     }
   }
-  /* Сам не понимаю как это все заработало, 2 уровня вложенности в мапе и эти значние не должны были выдергиваться, изза того что вызывается всегда internal
+  /* Сам не понимаю как это все заработало, 2 уровня вложенности в мапе и эти значние не должны были выдергиваться, изза того что вызывается всегда external
 Не баг, а фича (с)
 */
   source_ranges = lookup(lookup(local.fw_config, element(keys(local.fw_config), count.index)), element(keys(local.fw_config.external), 1))
