@@ -1,0 +1,9 @@
+*key.tf
+*admin.json
+.*
+*.tfstate*
+*.tfstate
+*.backup
+!.gitignore
+terraform.*
+.terraform
