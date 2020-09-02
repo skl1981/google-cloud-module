@@ -56,15 +56,9 @@ resource "google_compute_instance" "default" {
   }
 
   tags                    = var.tags
-   metadata_startup_script = <<SCRIPT
-       sudo yum update
-       sudo yum install -y nginx
-       sudo systemctl enable nginx
-       sudo systemctl start nginx
-    SCRIPT
-  labels                  = var.labels
-}
 
-output "ip" {
-  value = "${google_compute_instance.default.network_interface.0.access_config.0.nat_ip}"
+  metadata_startup_script = file("install.nginx")    
+  
+  labels                  = var.labels
+
 }
