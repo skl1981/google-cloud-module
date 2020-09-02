@@ -35,7 +35,7 @@ resource "google_compute_firewall" "internal" {
   allow {
     protocol = "icmp"
   }
-  source_ranges = ["10.10.0.0/16"]
+  source_ranges = ["10.${var.student_IDnum}.0.0/16"]
   description   = "firewall rule for internal conections in our vpc-network"
 }
 
