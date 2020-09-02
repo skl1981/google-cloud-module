@@ -18,7 +18,7 @@ resource "google_compute_network" "vpc_network" {
 
 resource "google_compute_firewall" "external_access" {
   name    = "${var.student_name}-ext-firewall"
-  network = google_compute_network.vpc_network.name
+  network = google_compute_network.vpc_network.id
 
   allow {
     protocol = "tcp"
@@ -28,7 +28,7 @@ resource "google_compute_firewall" "external_access" {
 
 resource "google_compute_firewall" "internal_access" {
   name    = "${var.student_name}-int-firewall"
-  network = google_compute_network.vpc_network.name
+  network = google_compute_network.vpc_network.id
 
   allow {
     protocol = "tcp"
