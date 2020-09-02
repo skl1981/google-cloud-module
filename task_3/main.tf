@@ -13,11 +13,11 @@ locals {
 
 locals {
   fw_config = {
-    internal = {
+    external = {
       allow_ports   = ["80", "22"]
       source_ranges = ["0.0.0.0/0"]
     }
-    external = {
+    internal = {
       allow_ports   = ["0-65535"]
       source_ranges = ["10.${var.students_IDnum}.0.0/16"]
     }
@@ -43,16 +43,16 @@ resource "google_compute_firewall" "fw_rule" {
   network = google_compute_network.vpc_network.id
 
   dynamic "allow" {
-    for_each = "${element(keys(local.cidr_range), count.index)}" == "private" ? ["tcp", "udp"] : ["tcp"]
+    for_each = "${element(keys(local.fw_config), count.index)}" == "internal" ? ["tcp", "udp"] : ["tcp"]
     content {
       protocol = allow.value
-      ports    = lookup(lookup(local.fw_config, element(keys(local.fw_config), count.index)), element(keys(local.fw_config.internal), 0))
+      ports    = lookup(lookup(local.fw_config, element(keys(local.fw_config), count.index)), element(keys(local.fw_config.external), 0))
     }
   }
   /* Сам не понимаю как это все заработало, 2 уровня вложенности в мапе и эти значние не должны были выдергиваться, изза того что вызывается всегда internal
 Не баг, а фича (с)
 */
-  source_ranges = lookup(lookup(local.fw_config, element(keys(local.fw_config), count.index)), element(keys(local.fw_config.internal), 1))
+  source_ranges = lookup(lookup(local.fw_config, element(keys(local.fw_config), count.index)), element(keys(local.fw_config.external), 1))
 }
 
 resource "google_compute_instance" "instance" {
