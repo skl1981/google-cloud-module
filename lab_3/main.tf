@@ -113,7 +113,7 @@ variable "vpc_net_external_source_ranges" {
 variable "vpc_net_internal_name" {}
 variable "vpc_net_internal_allow_protocol_t" {}
 variable "vpc_net_internal_allow_protocol_u" {}
-variable "vpc_net_internal_allow_protocol_a" {}
+variable "vpc_net_internal_allow_protocol_a" {} # how 2 set type=list
 variable "vpc_net_internal_allow_ports_t" {
   type  = list
 }

@@ -19,7 +19,7 @@ vpc_net_external_source_ranges  = ["0.0.0.0/0"]
 vpc_net_internal_name             = "internal-firewall-rule"
 vpc_net_internal_allow_protocol_t = "tcp"
 vpc_net_internal_allow_protocol_u = "udp"
-vpc_net_internal_allow_protocol_a = "icmp"
+vpc_net_internal_allow_protocol_a = "icmp" # how 2 set type=list
 vpc_net_internal_allow_ports_t    = ["0-65535"]
 vpc_net_internal_allow_ports_u    = ["0-65535"]
 vpc_net_internal_source_ranges    = ["10.6.0.0/16"]
