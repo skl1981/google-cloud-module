@@ -11,7 +11,7 @@ description				= "Create VPC network"
 }
 
 resource "google_compute_firewall" "external" {
-name   					= var.exfwname
+name   					= "external-connect"
 network 				= google_compute_network.default.name
 description				= "Create external firewall ruls"
 source_ranges		    = ["0.0.0.0/0"]
@@ -23,7 +23,7 @@ source_ranges		    = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "internal" {
-name   					= var.infwname
+name   					= "internal-connect"
 network 				= google_compute_network.default.name
 description				= "Create internal firewall ruls"
 source_ranges		    = ["10.${var.student_IDnum}.0.0/16"]
@@ -40,14 +40,14 @@ source_ranges		    = ["10.${var.student_IDnum}.0.0/16"]
 }
 
 resource "google_compute_subnetwork" "public" {
-name          			= var.netpubname
+name          			= "public-subnetwork-vpc"
 ip_cidr_range			= "10.${var.student_IDnum}.1.0/24"
 network     			= google_compute_network.default.id
 description 			= "Create public subnetwork"
 }
 
 resource "google_compute_subnetwork" "private" {
-name          			= var.netprivname
+name          			= "private-subnetwork-vpc"
 ip_cidr_range			= "10.${var.student_IDnum}.2.0/24"
 network     			= google_compute_network.default.id
 description 			= "Create private subnetwork"
