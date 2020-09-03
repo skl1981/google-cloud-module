@@ -6,4 +6,5 @@
 *.backup
 !.gitignore
 terraform.*
+!terraform.tfvars
 .terraform

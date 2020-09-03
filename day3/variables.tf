@@ -1,3 +1,5 @@
+variable "projectname" {}
+
 variable "region" {}
 
 variable "createway" {}
