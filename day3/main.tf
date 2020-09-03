@@ -52,7 +52,7 @@ resource "google_compute_firewall" "vpc-firewall-int" {
     protocol = "tcp"
     ports    = ["0-65535"]
   }
-  source_ranges = ["${var.privatip}"] #!!!!!check
+  source_ranges = ["${var.privatip}"] #!!!!!checked
   description   = "create firewall internal rules"
 }
 resource "google_compute_instance" "default" {
