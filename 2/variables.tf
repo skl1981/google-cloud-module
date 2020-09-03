@@ -1,5 +1,4 @@
 variable "project" {
-  default = "amplified-coder-288007"
 }
 
 variable "region" {
@@ -36,11 +35,6 @@ variable "network" {
 
 variable "labels" {
   type = map
-  default = {
-    "servertype" = "nginxserver"
-    "osfamily" = "redhat"
-    "wayofinstallation" = "terraform"
-  }
 }
 
 variable "deletion_protection" {
@@ -49,9 +43,5 @@ variable "deletion_protection" {
 
 variable "tags" {
   type = list
-  default = [
-    "http-server",
-    "https-server"
-  ]
 }
 
