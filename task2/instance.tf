@@ -43,7 +43,3 @@ resource "google_compute_attached_disk" "default" {
   disk     = google_compute_disk.nginx-disk.id
   instance = google_compute_instance.nginx-gcp-terraform.id
 }
-
-output "URL" {
-  value = "http://${google_compute_instance.nginx-gcp-terraform.network_interface.0.access_config.0.nat_ip}"
-}
