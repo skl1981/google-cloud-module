@@ -79,7 +79,7 @@ resource "google_compute_instance" "default" {
 
   network_interface {
     network    = "${var.student_name}-vpc"
-    subnetwork = google_compute_subnetwork.private.id
+    subnetwork = google_compute_subnetwork.public.id
     access_config {
       // Ephemeral IP
     }
