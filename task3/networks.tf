@@ -26,7 +26,7 @@ resource "google_compute_firewall" "internal" {
   network = google_compute_network.vpc_network.name
   allow {
     ports    = var.internal_ports
-    protocol = "tcp"
+	protocol = "tcp"
   }
   allow {
     ports    = var.internal_ports
@@ -62,8 +62,8 @@ resource "google_compute_instance" "nginx-terraform" {
 
   boot_disk {
     initialize_params {
-      size  = var.disk_size
-      type  = var.disk_type
+	  size  = var.disk_size
+	  type  = var.disk_type
 	  image = "centos-7"
     }
   }
