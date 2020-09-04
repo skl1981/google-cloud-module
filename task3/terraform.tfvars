@@ -1,3 +1,4 @@
+instance_allow_stopping_for_upd = true
 student_name = "sakhonchik"
 student_id   = 13
 name         = "nginx-terraform"

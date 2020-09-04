@@ -1,7 +1,7 @@
 provider "google" {
   project = "vladimir-project-01"
   region  = "us-central1"
-  credentials = "${file("vladimir-project-01-7b7039c36bc6.json")}" 
+  credentials = file("vladimir-project-01-c4a426ae902c.json") 
 }
 
 resource "google_compute_network" "vpc_network" {
@@ -51,6 +51,10 @@ resource "google_compute_subnetwork" "private" {
   description   = "${var.student_name}-private subnetwork"
 }
 
+variable "instance_allow_stopping_for_upd" {
+  type  = bool
+}
+
 variable student_name {}
 variable student_id {
   type = number
@@ -64,6 +68,7 @@ variable "size" {
   type = number
 }
 variable "network" {}
+
 
 resource "google_compute_instance" "default" {
   name                = var.name
