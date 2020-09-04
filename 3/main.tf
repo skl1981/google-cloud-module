@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("../../../terraform-admin.json")
+  credentials = file("terraform-admin.json")
   project     = var.project
   region      = var.region
 }
@@ -78,5 +78,5 @@ resource "google_compute_instance" "vratomski" {
     }
   }
 
-  metadata_startup_script = templatefile("./start_nginx.sh", {student_name = var.student_name})
+  metadata_startup_script = templatefile("start_nginx.sh", {student_name = var.student_name})
 }
