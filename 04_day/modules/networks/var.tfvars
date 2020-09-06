@@ -1,0 +1,11 @@
+project_id     = "my-day02-project"
+region         = "us-central1"
+zone           = "us-central1-c"
+net_name       = "siarhei-hryshchanka" 
+sub_priv_name  = "private-subnetwork"
+sub_pub_name   = "public-subnetwork"
+sub_priv_range = "10.10.2.0/24"
+sub_pub_range  = "10.10.1.0/24"
+jump_ports     = ["22"]
+web_ports      = ["22","80"]
+db_ports       = ["22","5432"]
