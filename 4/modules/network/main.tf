@@ -59,6 +59,17 @@ resource "google_compute_firewall" "internal" {
   source_ranges = ["10.${var.student_IDnum}.0.0/16"]
 }
 
+resource "google_compute_firewall" "internal-ssh" {
+  name    = "${var.fw-int-name}-ssh"
+  network = google_compute_network.vpc-ratomski.name
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+  source_tags = ["internal-22"]
+}
+
+
 #---------------------
 #     SUBNETWORKS
 #---------------------
