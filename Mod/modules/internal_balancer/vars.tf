@@ -47,3 +47,7 @@ variable "db_instance_group" {
 variable "network_name" {
   default = "vpc_network"
 }
+
+variable "region" {
+  default = "us-central1"
+}

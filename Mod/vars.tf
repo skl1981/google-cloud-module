@@ -1,7 +1,7 @@
-variable student_name {
+variable "student_name" {
   default = "vgulinskiy"
 }
-variable student_id {
+variable "student_id" {
   type    = number
   default = 12
 }
@@ -25,11 +25,11 @@ variable "size" {
   default = "35"
 }
 
-variable "subnet_public_name" {
+variable "google_subnet_public_name" {
   default = "public"
 }
 
-variable "subnet_private_name" {
+variable "google_subnet_private_name" {
   default = "private"
 }
 variable "name" {
@@ -40,4 +40,7 @@ variable "network" {
 }
 variable "zone" {
   default = "us-central1-b"
+}
+variable "region" {
+  default = "us-central1"
 }

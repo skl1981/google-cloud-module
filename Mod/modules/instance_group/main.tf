@@ -3,7 +3,7 @@
 
 resource "google_compute_instance_template" "web_server" {
   name_prefix  = "instance-template-web-server"
-  machine_type = "n1-standard-1"
+  machine_type = var.machine_type
 
   disk {
     source_image = var.image
@@ -60,7 +60,7 @@ resource "google_compute_region_instance_group_manager" "web_server" {
 
 resource "google_compute_instance_template" "db_server" {
   name_prefix  = "instance-template-db-server"
-  machine_type = "n1-standard-1"
+  machine_type = var.machine_type
   region       = "us-central1"
 
   disk {

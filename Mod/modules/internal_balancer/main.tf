@@ -2,7 +2,7 @@
 # Creating internal backend service + health_check
 
 resource "google_compute_region_backend_service" "db" {
-  region = "us-central1"
+  region = var.region
   name   = "db-region-service"
 
 
@@ -31,7 +31,7 @@ resource "google_compute_health_check" "db" {
 
 resource "google_compute_forwarding_rule" "db_int_lb" {
   name                  = "db-int-lb-rule"
-  region                = "us-central1"
+  region                = var.region
   load_balancing_scheme = "INTERNAL"
   backend_service       = google_compute_region_backend_service.db.id
   ports                 = ["5432"]

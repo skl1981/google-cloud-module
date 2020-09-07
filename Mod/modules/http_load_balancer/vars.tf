@@ -50,3 +50,6 @@ variable "network_name" {
 variable "instance_group_web" {
   default = "web_server"
 }
+variable "region" {
+  default = "us-central1"
+}
