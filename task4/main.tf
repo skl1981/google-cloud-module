@@ -1,6 +1,6 @@
 // Please export variables 
-// export GOOGLE_CLOUD_KEYFILE_JSON=vladimir-project-01-7b7039c36bc6.json
-// export GOOGLE_BACKEND_CREDENTIALS=vladimir-project-01-7b7039c36bc6.json
+// export GOOGLE_CLOUD_KEYFILE_JSON
+// export GOOGLE_BACKEND_CREDENTIALS
 
 provider "google" {
   project     = var.project_id
