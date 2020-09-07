@@ -1,3 +1,10 @@
+#################################################
+#
+#  modyls can be runed separatly from main module!!!!
+#   so they include "provider" block 
+#
+#################################################
+
 provider "google" {
   credentials = "${file("terraform-admin.json")}"
   project     = "${var.projectname}"
@@ -5,12 +12,12 @@ provider "google" {
 }
 
 
-#terraform {
-#  backend "gcs" {
-#    bucket = "bucket_exit_task"
-#    prefix = "terraform/exit-task"
-#  }
-#}
+terraform {
+  backend "gcs" {
+    bucket = "bucket_exit_task"
+    prefix = "terraform/exit-task"
+  }
+}
 
 
 module "network" {
