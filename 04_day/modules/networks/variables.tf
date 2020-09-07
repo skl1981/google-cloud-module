@@ -1,10 +1,10 @@
-variable "project_id"     {
-  type = string
-}
-variable "region"         {
+/*variable "project_id"     {
   type = string
 }
 variable "zone"           {
+  type = string
+}*/
+variable "region"         {
   type = string
 }
 variable "net_name"       {
@@ -22,12 +22,24 @@ variable "sub_priv_range" {
 variable "sub_pub_range"  {
   type = string
 }
-variable "jump_ports"     {
+variable "allow_jump_ports"     {
   type = list
 }
-variable "web_ports"      {
+variable "allow_web_ports"      {
   type = list
 }
-variable "db_ports"       {
+variable "allow_db_ports"       {
   type = list
+}
+variable "target_tag_db"       {
+  type = list
+  default = ["db"]
+}
+variable "target_tag_web"       {
+  type = list
+  default = ["web"]
+}
+variable "target_tag_jump"       {
+  type = list
+  default = ["ssh-jump"]
 }

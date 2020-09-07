@@ -9,17 +9,17 @@
 resource "google_compute_instance" "vm_instance" {
   name         = var.name_instance
   machine_type = var.machine_type
-  description  = "jump host for ssh conection"
-  tags         = ["ssh-jump"]
+  description  = "${var.name_instance} for ssh conection"
+  tags         = var.tags 
   boot_disk {
     initialize_params {
-      image = "${var.image_project}/${var.image_family}"
+      image = var.image_jump
       size  = var.disk_size_gb
       type  = var.disk_type
     }
   }
   metadata = {
-    ssh-keys = "ubuntu:${file("key.pub")}"
+    ssh-keys = "${var.ssh_user_name}:${file(var.ssh_key_name)}"
   }
   network_interface {
     network       = var.net_name

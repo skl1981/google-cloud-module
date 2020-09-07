@@ -1,4 +1,4 @@
-variable "project_id" {
+/*variable "project_id" {
   type        = string
 }
 variable "region" {
@@ -6,6 +6,18 @@ variable "region" {
 }
 variable "zone" {
   type        = string
+}*/
+variable "tags"          { 
+  type        = list
+  default     = ["ssh-jump"]
+}
+variable "ssh_user_name"    {
+  type        = string
+  default     = "ubuntu"
+}
+variable "ssh_key_name"    {
+  type        = string
+  default     = "key.pub"
 }
 variable "name_instance" {
   type        = string
@@ -13,10 +25,7 @@ variable "name_instance" {
 variable "machine_type" {
   type        = string
 }
-variable "image_project" {
-  type        = string
-}
-variable "image_family" {
+variable "image_jump" {
   type        = string
 }
 variable "disk_type" {

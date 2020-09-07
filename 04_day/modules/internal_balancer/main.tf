@@ -6,34 +6,34 @@
 
 // =================create internal load balancer======================
 
-data "google_compute_region_instance_group" "dbserver" {
-  name = "db-igm"
-}
 
 resource "google_compute_forwarding_rule" "default" {
-  name                  = "website-forwarding-rule"
-  region                = var.region
+  name                  = "${var.name}-forwarding-rule"
   load_balancing_scheme = "INTERNAL"
   backend_service       = google_compute_region_backend_service.db-backend.id
-  ports                 = var.ports_int_lb
-  network               = var.net_int_lb
-  subnetwork            = var.subnet_int_lb
+  ports                 = var.lb_proxy_port
+  network               = var.net_for_lb
+  subnetwork            = var.subnet_for_lb
 }
 
 resource "google_compute_region_backend_service" "db-backend" {
-  name                  = "db-backend"
-  region                = var.region
+  name                  = var.name
   backend {
-    group               = data.google_compute_region_instance_group.dbserver.self_link
+    group               = data.google_compute_region_instance_group.dbserver.id
   }
   health_checks         = [google_compute_health_check.db-hc.id]
 }
 
+data "google_compute_region_instance_group" "dbserver" {
+  name = var.ins_group_name // the name of the instance group that will be used as the backend
+}
+
+
 resource "google_compute_health_check" "db-hc" {
-  name               = "check-db-backend"
-  check_interval_sec = 1
-  timeout_sec        = 1
+  name                   = "${var.name}-health-check"
+  timeout_sec            = 3
+  check_interval_sec     = 3
   tcp_health_check {
-    port             = "5432"
+    port                 = var.lb_hc_port
   }
 }

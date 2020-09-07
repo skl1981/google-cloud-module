@@ -9,21 +9,21 @@
 resource "google_compute_network" "vpc_network" {
   name                    = var.net_name
   auto_create_subnetworks = false
-  description             = "custom-vpc-network"
+  description             = "${var.net_name}-vpc-network"
 }
 
 resource "google_compute_subnetwork" "public" {
   name          = var.sub_pub_name
   ip_cidr_range = var.sub_pub_range
   network       = google_compute_network.vpc_network.id
-  description   = "public-subnetwork in vpc network"
+  description   = "public-subnetwork in ${var.net_name}-vpc network"
 }
 
 resource "google_compute_subnetwork" "private" {
   name          = var.sub_priv_name
   ip_cidr_range = var.sub_priv_range
   network       = google_compute_network.vpc_network.id
-  description   = "private-subnetwork in vpc network"
+  description   = "private-subnetwork in ${var.net_name}-vpc network"
   private_ip_google_access = true
 }
 
@@ -36,11 +36,12 @@ resource "google_compute_firewall" "ssh-jump" {
   network       = google_compute_network.vpc_network.name
   allow {
     protocol    = "tcp"
-    ports       = var.jump_ports
+    ports       = var.allow_jump_ports
   }
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["ssh-jump"]
+  target_tags   = var.target_tag_jump 
 }
+
 
 //rule for web group instance
 resource "google_compute_firewall" "db-rule" {
@@ -48,20 +49,20 @@ resource "google_compute_firewall" "db-rule" {
   network       = google_compute_network.vpc_network.name
   allow {
     protocol    = "tcp"
-    ports       = var.db_ports
+    ports       = var.allow_db_ports
   }
-  target_tags   = ["db"]
+  target_tags   = var.target_tag_db 
 }
 
 //rule for db group instance
 resource "google_compute_firewall" "web-rule" {
-  name    = "web-rule"
-  network = google_compute_network.vpc_network.name
+  name          = "web-rule"
+  network       = google_compute_network.vpc_network.name
   allow {
-    protocol = "tcp"
-    ports    = var.web_ports
+    protocol    = "tcp"
+    ports       = var.allow_web_ports
   }
-  target_tags = ["web"]
+  target_tags   = var.target_tag_web
 }
 
 
