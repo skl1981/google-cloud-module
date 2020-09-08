@@ -74,8 +74,8 @@ resource "google_compute_instance" "task3" {
        sudo systemctl start nginx
     SCRIPT
   network_interface {
-    network = "${var.student_name}-vpc"
-    subnetwork = "public-subnet"
+    network = google_compute_network.vpc_network.name
+    subnetwork = google_compute_subnetwork.public.name
     access_config {
     }
   }
