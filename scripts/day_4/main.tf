@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "google" {
-  credentials       = "/home/mumz/.servicekey/terraform-admin.json"
+  #credentials       = "/home/mumz/.servicekey/terraform-admin.json"
   project           = var.project
   region            = var.region
 }
