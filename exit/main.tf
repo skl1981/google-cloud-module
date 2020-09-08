@@ -1,3 +1,4 @@
+# export GOOGLE_CLOUD_KEYFILE_JSON=.../weighty-forest-288021-a66f9faea241.json.json
 provider "google" {
   project = var.project_id 
   region = var.region     
@@ -8,7 +9,7 @@ provider "google" {
 ////////////
 ///bucket///
 ////////////
-
+# export GOOGLE_BACKEND_CREDENTIALS=..../weighty-forest-288021-a66f9faea241.json.json
 terraform {
   backend "gcs" {
     bucket = "mshnipau-bucket"
