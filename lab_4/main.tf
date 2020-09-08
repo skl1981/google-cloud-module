@@ -58,14 +58,15 @@ module "instance_group" {
 }
 
 module "loadbalancer_web" {
-  source            = "./modules/loadbalancer_web"
-  depends_on        = [module.vpc_net, module.instance_group]
+  source             = "./modules/loadbalancer_web"
+  instancegroup_name = module.instance_group.web_instance_group_name
+  depends_on         = [module.vpc_net, module.instance_group]
 }
 
 module "loadbalancer_internal" {
-  source            = "./modules/loadbalancer_internal"
-  balancing_ports   =  var.balancing_ports
-  network           =  module.vpc_net.vpc_net_name
-  subnet            =  module.vpc_net.private_subnet_name  
-  depends_on        = [module.vpc_net, module.instance_group]
+  source             = "./modules/loadbalancer_internal"
+  balancing_ports    =  var.balancing_ports
+  network            =  module.vpc_net.vpc_net_name
+  subnet             =  module.vpc_net.private_subnet_name  
+  depends_on         = [module.vpc_net, module.instance_group]
 }

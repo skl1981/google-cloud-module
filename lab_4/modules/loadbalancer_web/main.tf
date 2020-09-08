@@ -29,7 +29,6 @@ resource "google_compute_backend_service" "default" {
     balancing_mode        = var.backend_service_balancing_mode
     max_rate_per_instance = var.backend_service_max_rate_per_instance
   }
-  depends_on              = [google_compute_health_check.web]
 }
 
 resource "google_compute_health_check" "web" {

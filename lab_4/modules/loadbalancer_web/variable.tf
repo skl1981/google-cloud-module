@@ -1,5 +1,5 @@
 variable "instancegroup_name" {
-  default = "instance-group-web"
+  default = "web-instance-group"
 }
 variable "prefix" {
   default = "web"
