@@ -8,11 +8,11 @@ resource "google_compute_region_autoscaler" "public" {
     target                      = google_compute_region_instance_group_manager.public.id
 
     autoscaling_policy {
-         cooldown_period        = 45
+         cooldown_period        = 60
          min_replicas           = 1
          max_replicas           = 3
 
-    load_balancing_utilization {
+    cpu_utilization {
          target                 = 0.6
     }
   }
@@ -37,8 +37,8 @@ resource "google_compute_region_instance_group_manager" "private" {
     target_size                 = 3
     
     #auto_healing_policies {
-    #    health_check            = google_compute_health_check.db-check.id
-    #    initial_delay_sec       = 300
+    #    health_check            = google_compute_health_check.private-autohealing.id
+    #   initial_delay_sec        = 300
     #}
 }
 
@@ -57,9 +57,9 @@ resource "google_compute_region_instance_group_manager" "public" {
     version {
         instance_template = google_compute_instance_template.public.id
     }
-
+    
     #auto_healing_policies {
-    #    health_check            = google_compute_health_check.nginx-check.id
+    #    health_check            = google_compute_health_check.public-autohealing.id
     #    initial_delay_sec       = 300
     #}
 }
@@ -96,7 +96,7 @@ resource "google_compute_instance_template" "private" {
 
 
     metadata = {
-        sshKeys                 = "${var.ssh_user}:${var.ssh_key}"
+        ssh-keys = "var.ssh_user:${file("key.pub")}"
     }
 
     metadata_startup_script     = file("./startup_private.sh")  
@@ -153,8 +153,8 @@ resource "google_compute_instance_template" "public" {
     }
 
 
-    metadata  = {
-        sshKeys                 = "${var.ssh_user}:${var.ssh_key}"
+    metadata = {
+        ssh-keys = "var.ssh_user:${file("key.pub")}"
     }
 
     metadata_startup_script     = templatefile("startup_public.sh", { student_name = "${var.student_name}", student_surname = "${var.student_surname}"})  

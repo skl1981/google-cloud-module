@@ -29,17 +29,19 @@ resource "google_compute_region_backend_service" "db-backend" {
   backend {
     group               = data.google_compute_region_instance_group.private.self_link
   }
-  health_checks         = [google_compute_health_check.private-autohealing.id]
+  health_checks         = [google_compute_health_check.pprivate-autohealing.id]
 }
 
 #---------------------------------------------------------------#
 # Create compute autohealing policy for postgress instances     #
 #---------------------------------------------------------------#
 
-resource "google_compute_health_check" "private-autohealing" {
-  name                   = "private-autohealing"
-  check_interval_sec     = "4"
-  timeout_sec            = "4"
+resource "google_compute_health_check" "pprivate-autohealing" {
+  name                   = "pprivate-autohealing"
+  timeout_sec         = 2
+  check_interval_sec  = 5
+  healthy_threshold   = 3
+  unhealthy_threshold = 5
   tcp_health_check {
     port                 = "5432"
   }

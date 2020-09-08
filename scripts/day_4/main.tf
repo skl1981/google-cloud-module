@@ -1,3 +1,6 @@
+#---------------------------------------------------------------#
+# Create terraform backend to use remote storage                #
+#---------------------------------------------------------------#
 terraform {
   backend "gcs" {
     bucket      = "izaitsava-bucket"
@@ -11,6 +14,10 @@ provider "google" {
   region            = var.region
 }
 
+
+#-----------------------#
+# Add and init modules  #
+#-----------------------#
 module "network" {
   source            = "./modules/network"
 }
@@ -18,7 +25,6 @@ module "network" {
 module "managed_instance_groups" {
   source            = "./modules/managed_instance_groups"
   ssh_user          = var.ssh_user
-  ssh_key           = var.ssh_key
   student_name      = var.student_name
   student_surname   = var.student_surname
   zones             = var.zones

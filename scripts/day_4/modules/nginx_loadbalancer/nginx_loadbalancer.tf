@@ -44,15 +44,15 @@ resource "google_compute_backend_service" "nginx-backend" {
     #max_connections_per_instance  = "30"
     #max_connections        = "50"
   }
-  health_checks             = [google_compute_health_check.public-autohealing.id]
+  health_checks             = [google_compute_health_check.ppublic-autohealing.id]
 }
 
 #--------------------------------------------------------#
 # Create compute autohealing policy for nginx instances  #
 #--------------------------------------------------------#
 
-resource "google_compute_health_check" "public-autohealing" {
-  name                          = "public-autohealing"
+resource "google_compute_health_check" "ppublic-autohealing" {
+  name                          = "ppublic-autohealing"
   check_interval_sec            = "5"
   timeout_sec                   = "5"
   healthy_threshold             = "2"

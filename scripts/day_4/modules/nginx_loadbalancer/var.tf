@@ -37,3 +37,4 @@ variable "name_backend" {
     description         = "Name of the backend Service defines a group of virtual machines that will serve traffic for load balancing. "
     default             = "nginx-backend-service"
 }
+

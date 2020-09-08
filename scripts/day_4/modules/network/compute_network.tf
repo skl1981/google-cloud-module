@@ -93,15 +93,15 @@ resource "google_compute_firewall" "deny-internal" {
     name                    	= var.deny_rule
     project                 	= var.project
     network                 	= google_compute_network.compute_network.name
-    priority                	= var.priority_deny 
+    priority                	= "1001"
     description             	= var.description_deny_rule
     direction               	= var.direction
     deny {
         protocol            	= var.deny_protocol
         ports               	= var.deny_port
     }
-    target_tags             	= var.jump_tag
-    source_tags             	= var.deny_tags
+    target_tags             	= var.deny_tags
+    source_ranges             	= ["0.0.0.0/0"]
 }
 
 #---------------------------------------------#
