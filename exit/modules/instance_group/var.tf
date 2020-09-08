@@ -1,45 +1,45 @@
-variable "project_id"			{
+variable "project_id"{
   default  = "weighty-forest-288021"
 }
-variable "region"			{
+variable "region"{
   default  = "us-central1"
 }
-variable "zone"			{
+variable "zone"{
   default  = "us-central1-c"
 }
-variable "machine_type"			{
+variable "machine_type"{
   default  = "n1-standard-1"
 }
-variable "image_family"		{
+variable "image_family"{
   default = "centos-7"
 }
-variable "image_project"			{
+variable "image_project"{
   default  = "centos-cloud"
 }
-variable "net_name"			{
+variable "net_name"{
   default  = "mikita-shnipau-vpc"
 }
-variable "subnet_for_web"			{
+variable "subnet_for_web"{
   default  = "public-subnetwork"
 }
-variable "base_inst_name_web"			{
+variable "base_inst_name_web"{
   default  = "web"
 }
-variable "base_inst_name_db"			{
+variable "base_inst_name_db"{
   default  = "db"
 }
-variable "count_ins_web"			{
+variable "count_ins_web"{
   default  = "1"
 }
-variable "subnet_for_db"			{
+variable "subnet_for_db"{
   default  = "private-subnetwork"
 }
-variable "count_ins_db"			{
+variable "count_ins_db"{
   default  = "3"
 }
-variable "student_name"			{
+variable "student_name"{
   default  = "Mikita"
 }
-variable "student_surname"			{
+variable "student_surname"{
   default  = "Shnipau"
 }
